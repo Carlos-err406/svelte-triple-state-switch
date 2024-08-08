@@ -53,5 +53,24 @@
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-inplace-carousel": "^0.1.0"
+	},
+	"keywords": [
+		"svelte",
+		"carousel",
+		"component",
+		"easy to use"
+	],
+	"license": "MIT",
+	"author": {
+		"email": "carlosd.vilaseca@avangenio.com",
+		"name": "Carlos Daniel Vilaseca",
+		"url": "https://github.com/carlos-err406"
+	},
+	"repository": {
+		"url": "https://github.com/Carlos-err406/inplace-carousel",
+		"type": "github"
+	}
 }
