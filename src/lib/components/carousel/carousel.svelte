@@ -26,9 +26,6 @@
 
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-
-	import type { ClassValue } from 'clsx';
-
 	import { onDestroy, onMount, setContext } from 'svelte';
 	import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
@@ -158,7 +155,7 @@
 	setContext('carousel-items', { items, centerItem, nextItem, prevItem });
 	setContext('carousel-opts', carouselOpts);
 	setContext('carousel-methods', { next, prev });
-	let classNames: ClassValue = '';
+	let classNames = '';
 	export { classNames as class };
 
 	const controlAcction = (node: HTMLElement) => {

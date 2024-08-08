@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import type { ClassValue } from 'clsx';
 	import { getContext, onMount } from 'svelte';
 	import { derived, type Writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
@@ -38,7 +37,7 @@
 		return `1`;
 	});
 
-	let classNames: ClassValue = '';
+	let classNames = '';
 	export { classNames as class };
 </script>
 
