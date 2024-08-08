@@ -15,7 +15,7 @@
 		interval: number;
 		duration: number;
 		buttonSeparation: number;
-		showButtons: boolean;
+		showControls: boolean;
 	};
 
 	export type CarouselMethods = {
@@ -36,13 +36,13 @@
 	export let interval: number = 5000;
 	export let duration: number = 300;
 	export let buttonSeparation: number = 0;
-	export let showButtons: boolean = true;
+	export let showControls: boolean = true;
 	const carouselOpts = writable<CarouselOpts>({
 		animated,
 		interval,
 		duration,
 		buttonSeparation,
-		showButtons
+		showControls
 	});
 
 	const items = writable<CarouselItemType[]>([]);
@@ -164,12 +164,12 @@
 
 <div class={cn(classNames, 'py-5 w-fit')}>
 	<div class="relative" style="width: {width}px; height: {centerHeight}px">
-		{#if $carouselOpts.showButtons && $$slots.prev}
+		{#if $carouselOpts.showControls && $$slots.prev}
 			<div class="absolute z-20 left-0" style="top: {buttonsTop}px;">
 				<slot builder={{ 'data-kind': 'prev', kind: 'prev' }} name="prev">◀️</slot>
 			</div>
 		{/if}
-		{#if $carouselOpts.showButtons && $$slots.next}
+		{#if $carouselOpts.showControls && $$slots.next}
 			<div class="absolute z-20 right-0" style="top: {buttonsTop}px;">
 				<slot builder={{ 'data-kind': 'next', kind: 'next' }} name="next">▶️</slot>
 			</div>

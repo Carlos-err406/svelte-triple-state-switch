@@ -2,7 +2,17 @@
 	import * as Carousel from 'svelte-inplace-carousel';
 </script>
 
-<Carousel.Root>
+<Carousel.Root >
+	<svelte:fragment slot="prev" let:builder>
+		<Carousel.Button {...builder}>
+			{'<'}
+		</Carousel.Button>
+	</svelte:fragment>
+	<svelte:fragment slot="next" let:builder>
+		<Carousel.Button {...builder}>
+			{'>'}
+		</Carousel.Button>
+	</svelte:fragment>
 	<Carousel.Item>
 		<div class="size-60 flex items-center justify-center bg-red-500">A</div>
 	</Carousel.Item>
