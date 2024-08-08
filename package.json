@@ -4,9 +4,9 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build:css": "npx tailwindcss -i ./src/lib/styles.css -o ./dist/styles.css",
-		"build": "vite build && npm run package && npm run build:css",
+		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package && publint && npm run build:css",
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
