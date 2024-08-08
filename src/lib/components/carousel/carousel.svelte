@@ -26,7 +26,7 @@
 
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { onDestroy, onMount, setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import { derived, writable, type Readable, type Writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 
@@ -140,8 +140,6 @@
 		destroyInterval();
 		doInterval();
 	};
-	onMount(doInterval);
-	onDestroy(destroyInterval);
 	$: centerWidth = $centerItem?.item.offsetWidth || 0;
 	$: centerHeight = $centerItem?.item.offsetHeight || 0;
 
@@ -161,6 +159,7 @@
 
 	let wrapper: HTMLDivElement;
 	onMount(() => {
+		doInterval();
 		const eventHandler = (e: MouseEvent) => {
 			const node = e.target as HTMLElement;
 			e.preventDefault();
@@ -172,6 +171,7 @@
 			.forEach((element) => element.addEventListener('click', eventHandler));
 
 		return () => {
+			destroyInterval();
 			wrapper
 				?.querySelectorAll<HTMLElement>('[data-carousel-button]')
 				.forEach((element) => element.removeEventListener('click', eventHandler));
