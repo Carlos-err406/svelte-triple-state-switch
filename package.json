@@ -1,6 +1,6 @@
 {
 	"name": "svelte-inplace-carousel",
-	"version": "0.7.0",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build:css": "npx tailwindcss -i ./src/lib/styles.css -o ./dist/styles.css",
