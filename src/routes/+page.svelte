@@ -11,9 +11,11 @@
 	</svelte:fragment>
 	<Carousel.Item>
 		<div class="size-60 flex items-center justify-center bg-red-500">A</div>
+		<svelte:fragment slot="footer">Hello this is the footer for A</svelte:fragment>
 	</Carousel.Item>
 	<Carousel.Item>
 		<div class="size-60 flex items-center justify-center bg-blue-500">B</div>
+		<svelte:fragment slot="footer">Hello this is the footer for B</svelte:fragment>
 	</Carousel.Item>
 	<Carousel.Item>
 		<div class="size-60 flex items-center justify-center bg-yellow-500">C</div>

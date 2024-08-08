@@ -55,13 +55,13 @@
 	<div class="carousel-item">
 		<slot></slot>
 	</div>
-	{#if $isCenter && $$slots.footer}
-		<div
-			transition:fade={{ duration: 300 }}
-			style="width: {width}px;"
-			class="mt-2 whitespace-break-spaces scale-100"
-		>
+	<div
+		transition:fade={{ duration: 300 }}
+		style="width: {width}px;"
+		class="mt-2 whitespace-break-spaces scale-100"
+	>
+		{#if $isCenter && $$slots.footer}
 			<slot name="footer"></slot>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
