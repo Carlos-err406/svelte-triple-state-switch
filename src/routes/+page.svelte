@@ -3,11 +3,11 @@
 </script>
 
 <Carousel.Root>
-	<svelte:fragment let:builder let:action slot="prev">
-		<button use:action {...builder} type="button" class="scale-150">◀️</button>
+	<svelte:fragment let:builder slot="prev">
+		<button {...builder} type="button" class="scale-150">◀️</button>
 	</svelte:fragment>
-	<svelte:fragment let:builder let:action slot="next">
-		<button use:action {...builder} type="button" class="scale-150">▶️</button>
+	<svelte:fragment let:builder slot="next">
+		<button {...builder} type="button" class="scale-150">▶️</button>
 	</svelte:fragment>
 	<Carousel.Item>
 		<div class="size-60 flex items-center justify-center bg-red-500">A</div>

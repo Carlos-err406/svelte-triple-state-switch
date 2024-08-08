@@ -28,6 +28,7 @@
 	import { cn } from '$lib/utils.js';
 	import { onDestroy, onMount, setContext } from 'svelte';
 	import { derived, writable, type Readable, type Writable } from 'svelte/store';
+	import { fade } from 'svelte/transition';
 
 	export let animated: boolean = true;
 	export let interval: number = 5000;
@@ -158,27 +159,36 @@
 	let classNames = '';
 	export { classNames as class };
 
-	const controlAcction = (node: HTMLElement) => {
+	let wrapper: HTMLDivElement;
+	onMount(() => {
 		const eventHandler = (e: MouseEvent) => {
+			const node = e.target as HTMLElement;
 			e.preventDefault();
 			if (node.dataset.kind === 'prev') prev();
 			else if (node.dataset.kind === 'next') next();
 		};
-		node.addEventListener('click', eventHandler);
-		return { destroy: () => node.removeEventListener('click', eventHandler) };
-	};
+		wrapper
+			?.querySelectorAll<HTMLElement>('[data-carousel-button]')
+			.forEach((element) => element.addEventListener('click', eventHandler));
+
+		return () => {
+			wrapper
+				?.querySelectorAll<HTMLElement>('[data-carousel-button]')
+				.forEach((element) => element.removeEventListener('click', eventHandler));
+		};
+	});
 </script>
 
 <div class={cn(classNames, 'py-5 w-fit')}>
-	<div class="relative" style="width: {width}px; height: {centerHeight}px">
+	<div bind:this={wrapper} class="relative" style="width: {width}px; height: {centerHeight}px">
 		{#if $carouselOpts.showControls && $$slots.prev}
-			<div class="absolute z-20 left-0" style="top: {buttonsTop}px;">
-				<slot builder={{ 'data-kind': 'prev' }} action={controlAcction} name="prev">◀️</slot>
+			<div transition:fade class="absolute z-20 left-0" style="top: {buttonsTop}px;">
+				<slot builder={{ 'data-carousel-button': '', 'data-kind': 'prev' }} name="prev">◀️</slot>
 			</div>
 		{/if}
 		{#if $carouselOpts.showControls && $$slots.next}
-			<div class="absolute z-20 right-0" style="top: {buttonsTop}px;">
-				<slot builder={{ 'data-kind': 'next' }} action={controlAcction} name="next">▶️</slot>
+			<div transition:fade class="absolute z-20 right-0" style="top: {buttonsTop}px;">
+				<slot builder={{ 'data-carousel-button': '', 'data-kind': 'next' }} name="next">▶️</slot>
 			</div>
 		{/if}
 		<div class="flex justify-center"><slot /></div>
