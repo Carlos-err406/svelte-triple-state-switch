@@ -1,5 +1,5 @@
 <script>
-	import '../app.css';
+	import '../styles.css';
 </script>
 
 <main class="absolute size-full">
