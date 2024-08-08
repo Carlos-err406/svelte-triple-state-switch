@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { cn } from '$lib/utils.js';
+	import type { ClassValue } from 'clsx';
 	import { getContext, onMount } from 'svelte';
 	import { derived, type Writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 	import type { CarouselContext, CarouselOpts } from './carousel.svelte';
-	import type { ClassValue } from 'clsx';
-	import { cn } from '$lib/utils.js';
 
 	onMount(addThisItemToContext);
 
@@ -46,12 +46,12 @@
 	bind:offsetWidth={width}
 	bind:this={carouselItem}
 	data-hide={$hide}
-	data-iscenter={$isCenter}
+	data-isCenter={$isCenter}
+	class:opacity-0={$hide}
+	class:z-10={$isCenter}
+	class:z-0={!$isCenter}
 	style="transform: translateX({$translateX}) scale({$scale}); transition-duration: {duration}ms"
-	class={cn(
-		classNames,
-		'absolute transition-all data-[hide=true]:opacity-0 z-0 data-[iscenter=true]:z-10'
-	)}
+	class={cn(classNames, 'absolute transition-all')}
 >
 	<div class="carousel-item">
 		<slot></slot>
