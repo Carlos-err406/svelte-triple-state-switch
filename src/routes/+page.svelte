@@ -10,18 +10,28 @@
 		<button {...builder} type="button" class="scale-150">▶️</button>
 	</svelte:fragment>
 	<Carousel.Item>
-		<div class="size-60 flex items-center justify-center bg-red-500">A</div>
+		<div class="c-item items-center justify-center bg-red-500">A</div>
 	</Carousel.Item>
 	<Carousel.Item>
-		<div class="size-60 flex items-center justify-center bg-blue-500">B</div>
+		<div class="c-item items-center justify-center bg-blue-500">B</div>
 	</Carousel.Item>
 	<Carousel.Item>
-		<div class="size-60 flex items-center justify-center bg-yellow-500">C</div>
+		<div class="c-item items-center justify-center bg-yellow-500">C</div>
 	</Carousel.Item>
 	<Carousel.Item>
-		<div class="size-60 flex items-center justify-center bg-pink-500">D</div>
+		<div class="c-item items-center justify-center bg-pink-500">D</div>
 	</Carousel.Item>
 	<Carousel.Item>
-		<div class="size-60 flex items-center justify-center bg-green-500">E</div>
+		<div class="c-item items-center justify-center bg-green-500">E</div>
 	</Carousel.Item>
 </Carousel.Root>
+
+<style>
+	.c-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 15rem /* 240px */;
+		height: 15rem /* 240px */;
+	}
+</style>
