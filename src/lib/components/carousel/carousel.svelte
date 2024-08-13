@@ -26,7 +26,7 @@
 
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { onMount, setContext } from 'svelte';
+	import { onMount, setContext, tick } from 'svelte';
 	import { derived, writable, type Readable, type Writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 
@@ -169,7 +169,7 @@
 		wrapper
 			?.querySelectorAll<HTMLElement>('[data-carousel-button]')
 			.forEach((element) => element.addEventListener('click', eventHandler));
-
+		tick().then(next);
 		return () => {
 			destroyInterval();
 			wrapper
