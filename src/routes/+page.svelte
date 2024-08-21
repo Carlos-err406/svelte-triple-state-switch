@@ -4,7 +4,7 @@
 	let value1: SwitchState;
 	let value2: SwitchState;
 	let value3: SwitchState;
-	$: console.log({ value1, value2, value3 });
+	// $: console.log({ value1, value2, value3 });
 </script>
 
 <svelte:head>
@@ -13,12 +13,7 @@
 
 <div class="space-y-5">
 	<div class="w-fit">
-		<Switch
-			bind:state={value1}
-			on:change={({ detail }) => console.log(detail)}
-			triple
-			canSetToIndeterminate
-		>
+		<Switch bind:state={value1} triple canSetToIndeterminate>
 			<svelte:fragment slot="indicator-content" let:state>
 				{#if state === 'indeterminate'}
 					<span>➖</span>
@@ -35,7 +30,6 @@
 			class="rounded-tl-none rounded-br-none"
 			indicatorClasses="bg-blue-400"
 			bind:state={value3}
-			on:change={({ detail }) => console.log(detail)}
 			triple
 			canSetToIndeterminate
 		>
@@ -53,7 +47,6 @@
 			class="rounded-tr-none rounded-bl-none"
 			indicatorClasses="bg-blue-400"
 			bind:state={value3}
-			on:change={({ detail }) => console.log(detail)}
 			triple={true}
 			canSetToIndeterminate={false}
 		>

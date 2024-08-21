@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	export let triple = false;
 	export let defaultValue: SwitchState<typeof $$props.triple> = triple ? 'indeterminate' : 'off';
@@ -19,10 +19,33 @@
 	}>();
 
 	let prevValue = state;
+
 	const setState = (value: Switch3State) => {
 		prevValue = state;
 		state = value;
 		dispatch('change', value);
+	};
+
+	let isDragging = false;
+	let startX = 0;
+	let diff = 0;
+	$: console.log({ isDragging, diff, startX });
+	let indicator: HTMLElement;
+
+	const handleMouseDown = (event: MouseEvent) => {
+		console.log('MOUSE DOWN');
+		isDragging = true;
+		startX = event.clientX;
+		document.addEventListener('mouseup', handleMouseUp);
+	};
+
+	const handleMouseUp = (event: MouseEvent) => {
+		isDragging = false;
+		diff = event.clientX - startX;
+		if (diff === 0) handleContainerClick();
+		else if (diff > 0) handleRight();
+		else if (diff < 0) handleLeft();
+		document.removeEventListener('mouseup', handleMouseUp);
 	};
 
 	const handleContainerClick = () => {
@@ -40,52 +63,68 @@
 		if (event.key === 'Enter' || event.key === ' ') {
 			handleContainerClick();
 		} else if (event.key === 'ArrowLeft') {
-			if (state === 'off') {
-				canSetToIndeterminate ? setState('indeterminate') : setState('on');
-			} else if (state === 'indeterminate') {
-				setState('on');
-			}
+			handleLeft();
 		} else if (event.key === 'ArrowRight') {
-			if (state === 'on') {
-				canSetToIndeterminate ? setState('indeterminate') : setState('off');
-			} else if (state === 'indeterminate') {
-				setState('off');
-			}
+			handleRight();
 		}
 	};
+	const handleLeft = () => {
+		if (state === 'off') {
+			canSetToIndeterminate ? setState('indeterminate') : setState('on');
+		} else if (state === 'indeterminate') {
+			setState('on');
+		}
+	};
+	const handleRight = () => {
+		if (state === 'on') {
+			canSetToIndeterminate ? setState('indeterminate') : setState('off');
+		} else if (state === 'indeterminate') {
+			setState('off');
+		}
+	};
+
+	onMount(() => {
+		indicator.addEventListener('mousedown', handleMouseDown);
+		return () => {
+			indicator.removeEventListener('mousedown', handleMouseDown);
+			document.removeEventListener('mouseup', handleMouseUp);
+		};
+	});
 </script>
 
-<input type="text" {name} hidden bind:value={state} />
-<button
+<div
 	data-triple-state-switch
-	on:click|preventDefault={handleContainerClick}
-	on:keydown|preventDefault={handleKeyDown}
-	class={cn(
-		'border rounded-full min-h-7',
-		$$restProps.class,
-		'flex flex-nowrap relative overflow-clip'
-	)}
+	class={cn('border rounded-full min-h-7', $$restProps.class, 'relative overflow-clip')}
 >
-	<div class="rounded-full min-h-full !aspect-square flex items-center justify-center min-w-6">
-		<slot name="on" />
-	</div>
-	{#if triple}
+	<input type="text" {name} hidden bind:value={state} />
+	<button
+		class="flex flex-nowrap size-full"
+		on:click={handleContainerClick}
+		on:keydown={handleKeyDown}
+	>
 		<div class="rounded-full min-h-full !aspect-square flex items-center justify-center min-w-6">
-			<slot name="indeterminate" />
+			<slot name="on" />
 		</div>
-	{/if}
-	<div class="rounded-full min-h-full !aspect-square flex items-center justify-center min-w-6">
-		<slot name="off" />
-	</div>
-	<div
+		{#if triple}
+			<div class="rounded-full min-h-full !aspect-square flex items-center justify-center min-w-6">
+				<slot name="indeterminate" />
+			</div>
+		{/if}
+		<div class="rounded-full min-h-full !aspect-square flex items-center justify-center min-w-6">
+			<slot name="off" />
+		</div>
+	</button>
+	<button
+		bind:this={indicator}
 		data-state={state}
+		type="button"
 		class={cn(
 			'backdrop-blur-[1px] border rounded-full transition-all duration-100 ease-out flex items-center justify-center',
 			$$restProps.indicatorClasses,
-			'absolute top-0 pointer-events-none transform',
+			'absolute top-0 z-10',
 			'h-full aspect-square'
 		)}
 	>
 		<slot name="indicator-content" {state}></slot>
-	</div>
-</button>
+	</button>
+</div>
