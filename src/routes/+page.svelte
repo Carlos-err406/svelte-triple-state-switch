@@ -30,27 +30,6 @@
 			</svelte:fragment>
 		</Switch>
 	</div>
-
-	<div class="w-fit">
-		<Switch
-			class="rounded-none"
-			indicatorClasses="rounded-none"
-			bind:state={value2}
-			on:change={({ detail }) => console.log(detail)}
-			triple
-			canSetToIndeterminate
-		>
-			<svelte:fragment slot="indicator-content" let:state>
-				{#if state === 'indeterminate'}
-					<span>➖</span>
-				{:else if state === 'on'}
-					<span>✔️</span>
-				{:else if state === 'off'}
-					<span class="rotate-45">➕</span>
-				{/if}
-			</svelte:fragment>
-		</Switch>
-	</div>
 	<div class="flex gap-3">
 		<Switch
 			class="rounded-tl-none rounded-br-none"

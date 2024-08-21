@@ -27,7 +27,6 @@
 	let indicatorWidth = 0;
 
 	const handleContainerClick = () => {
-		console.log('here');
 		if (state === 'off') {
 			canSetToIndeterminate ? setState('indeterminate') : setState('on');
 		} else if (state === 'indeterminate') {
@@ -60,8 +59,8 @@
 <input type="text" {name} hidden bind:value={state} />
 <button
 	data-triple-state-switch
-	on:click={handleContainerClick}
-	on:keydown={handleKeyDown}
+	on:click|preventDefault={handleContainerClick}
+	on:keydown|preventDefault={handleKeyDown}
 	class={cn(
 		'border rounded-full min-h-7',
 		$$restProps.class,
