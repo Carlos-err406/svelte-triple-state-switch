@@ -29,11 +29,9 @@
 	let isDragging = false;
 	let startX = 0;
 	let diff = 0;
-	$: console.log({ isDragging, diff, startX });
 	let indicator: HTMLElement;
 
 	const handleMouseDown = (event: MouseEvent) => {
-		console.log('MOUSE DOWN');
 		isDragging = true;
 		startX = event.clientX;
 		document.addEventListener('mouseup', handleMouseUp);

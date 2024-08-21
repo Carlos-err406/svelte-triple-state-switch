@@ -4,7 +4,6 @@
 	let value1: SwitchState;
 	let value2: SwitchState;
 	let value3: SwitchState;
-	// $: console.log({ value1, value2, value3 });
 </script>
 
 <svelte:head>
