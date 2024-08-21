@@ -24,7 +24,6 @@
 		state = value;
 		dispatch('change', value);
 	};
-	let indicatorWidth = 0;
 
 	const handleContainerClick = () => {
 		if (state === 'off') {
@@ -79,8 +78,6 @@
 		<slot name="off" />
 	</div>
 	<div
-		bind:clientWidth={indicatorWidth}
-		style="--indicator-width: {indicatorWidth}px"
 		data-state={state}
 		class={cn(
 			'backdrop-blur-[1px] border rounded-full transition-all duration-100 ease-out flex items-center justify-center',
