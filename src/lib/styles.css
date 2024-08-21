@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-triple-state-switch] [data-state='on'] {
+	@apply left-0 -translate-x-0;
+}
+[data-triple-state-switch] [data-state='indeterminate'] {
+	@apply left-1/2 -translate-x-1/2;
+}
+
+[data-triple-state-switch] [data-state='off'] {
+	@apply left-full -translate-x-full;
+}

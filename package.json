@@ -1,5 +1,5 @@
 {
-	"name": "svelte-inplace-carousel",
+	"name": "svelte-triple-state-switch",
 	"version": "1.2.0",
 	"scripts": {
 		"dev": "vite dev",
@@ -57,7 +57,9 @@
 	},
 	"keywords": [
 		"svelte",
-		"carousel",
+		"switch",
+		"toggle",
+		"3 states",
 		"component",
 		"easy to use"
 	],
@@ -68,7 +70,7 @@
 		"url": "https://github.com/carlos-err406"
 	},
 	"repository": {
-		"url": "https://github.com/Carlos-err406/inplace-carousel",
+		"url": "https://github.com/Carlos-err406/svelte-triple-state-switch",
 		"type": "github"
 	},
 	"dependencies": {

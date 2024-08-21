@@ -1,37 +1,92 @@
 <script lang="ts">
-	import * as Carousel from '$lib/index.js';
+	import type { SwitchState } from '$lib/components/switch.svelte';
+	import { Switch } from '$lib/index.js';
+	let value1: SwitchState;
+	let value2: SwitchState;
+	let value3: SwitchState;
+	$: console.log({ value1, value2, value3 });
 </script>
 
-<div class="h-[354px]">
-	<Carousel.Root interval={30000}>
-		<svelte:fragment let:builder slot="prev">
-			<button {...builder} type="button" class="scale-150">◀️</button>
-		</svelte:fragment>
-		<svelte:fragment let:builder slot="next">
-			<button {...builder} type="button" class="scale-150">▶️</button>
-		</svelte:fragment>
-		<Carousel.Item>
-			<div class="size-60 flex items-center justify-center bg-red-500">A</div>
-			<svelte:fragment slot="footer">
-				<div class="flex flex-col gap-2">
-					<span> Hello this is the footer for A </span>
-					<span> Hello this is the footer for A </span>
-				</div>
+<svelte:head>
+	<title>Playground</title>
+</svelte:head>
+
+<div class="space-y-5">
+	<div class="w-fit">
+		<Switch
+			bind:state={value1}
+			on:change={({ detail }) => console.log(detail)}
+			triple
+			canSetToIndeterminate
+		>
+			<svelte:fragment slot="indicator-content" let:state>
+				{#if state === 'indeterminate'}
+					<span>➖</span>
+				{:else if state === 'on'}
+					<span>✔️</span>
+				{:else if state === 'off'}
+					<span class="rotate-45">➕</span>
+				{/if}
 			</svelte:fragment>
-		</Carousel.Item>
-		<Carousel.Item>
-			<div class="size-60 flex items-center justify-center bg-blue-500">B</div>
-			<svelte:fragment slot="footer">Hello this is the footer for B</svelte:fragment>
-		</Carousel.Item>
-		<Carousel.Item>
-			<div class="size-60 flex items-center justify-center bg-yellow-500">C</div>
-		</Carousel.Item>
-		<Carousel.Item>
-			<div class="size-60 flex items-center justify-center bg-pink-500">D</div>
-		</Carousel.Item>
-		<Carousel.Item>
-			<div class="size-60 flex items-center justify-center bg-green-500">E</div>
-		</Carousel.Item>
-	</Carousel.Root>
+		</Switch>
+	</div>
+
+	<div class="w-fit">
+		<Switch
+			class="rounded-none"
+			indicatorClasses="rounded-none"
+			bind:state={value2}
+			on:change={({ detail }) => console.log(detail)}
+			triple
+			canSetToIndeterminate
+		>
+			<svelte:fragment slot="indicator-content" let:state>
+				{#if state === 'indeterminate'}
+					<span>➖</span>
+				{:else if state === 'on'}
+					<span>✔️</span>
+				{:else if state === 'off'}
+					<span class="rotate-45">➕</span>
+				{/if}
+			</svelte:fragment>
+		</Switch>
+	</div>
+	<div class="flex gap-3">
+		<Switch
+			class="rounded-tl-none rounded-br-none"
+			indicatorClasses="bg-blue-400"
+			bind:state={value3}
+			on:change={({ detail }) => console.log(detail)}
+			triple
+			canSetToIndeterminate
+		>
+			<svelte:fragment slot="indicator-content" let:state>
+				{#if state === 'indeterminate'}
+					<span></span>
+				{:else if state === 'on'}
+					<span></span>
+				{:else if state === 'off'}
+					<span></span>
+				{/if}
+			</svelte:fragment>
+		</Switch>
+		<Switch
+			class="rounded-tr-none rounded-bl-none"
+			indicatorClasses="bg-blue-400"
+			bind:state={value3}
+			on:change={({ detail }) => console.log(detail)}
+			triple={true}
+			canSetToIndeterminate={false}
+		>
+			<svelte:fragment slot="indicator-content" let:state>
+				{#if state === 'indeterminate'}
+					<span></span>
+				{:else if state === 'on'}
+					<span></span>
+				{:else if state === 'off'}
+					<span></span>
+				{/if}
+			</svelte:fragment>
+		</Switch>
+	</div>
 </div>
-<div>something outside the carousel</div>
